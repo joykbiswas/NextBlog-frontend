@@ -10,7 +10,12 @@ const CreateBlog = () => {
     const title = form.title.value;
     const description = form.description.value;
     const name = form.name.value;
-    const addBlog = { title, description, name };
+    const date = new Date().toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    const addBlog = { title, description, name , date};
     console.log(addBlog);
     fetch('http://localhost:5000/addBlog',{
         method: 'POST',
@@ -27,7 +32,7 @@ const CreateBlog = () => {
            
             Swal.fire({
                 title: 'success!',
-                text: 'user added successfully',
+                text: 'Blog added successfully',
                 icon: 'success',
                 confirmButtonText: 'Add'
               })
