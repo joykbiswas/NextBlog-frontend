@@ -1,8 +1,11 @@
 "use client";
+import { useRouter } from "next/navigation";
+// import { useRouter } from "next/router";
 import React from "react";
 import Swal from "sweetalert2";
 
 const CreateBlog = () => {
+  const router = useRouter();
   const handleSubmitted = (e) => {
     e.preventDefault();
 
@@ -34,7 +37,9 @@ const CreateBlog = () => {
                 title: 'success!',
                 text: 'Blog added successfully',
                 icon: 'success',
-                confirmButtonText: 'Add'
+                confirmButtonText: 'Ok'
+              }).then(() =>{
+                router.push('/')
               })
         }
         form.reset();

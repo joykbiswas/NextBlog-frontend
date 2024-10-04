@@ -9,6 +9,10 @@ const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [searchKey, setSearchKey] = useState("");
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  // const [itemsPerPage, setItemsParPage] = useState(5);
+  const itemsPerPage = 9;
+  // const count = 50;
 
   useEffect(() => {
     fetch("http://localhost:5000/addBlog")
@@ -18,8 +22,34 @@ const Blogs = () => {
         setLoading(false);
       });
   }, []);
+  const totalBlogs = blogs.length;
+  const numberOfPages = Math.ceil(totalBlogs / itemsPerPage);
+  const pages = [...Array(numberOfPages).keys()];
 
-  console.log(blogs);
+  const currentBlogs = blogs.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  
+  // const handleItemPerPage = (e) => {
+  //   const val = parseInt(e.target.value);
+  //   setItemsParPage(val);
+  //   setCurrentPage(0);
+  // };
+
+   // Pagination functions
+   const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < numberOfPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };  
 
   // Search submit
   const handleSearchBar = (e) => {
@@ -28,7 +58,6 @@ const Blogs = () => {
   };
   // Search for blog by title
   const handleSearchResults = () => {
-    // const allBlogs = blogs;
     const filteredBlogs = blogs.filter((blog) =>
       blog.title.toLowerCase().includes(searchKey.toLowerCase().trim())
     );
@@ -46,6 +75,7 @@ const Blogs = () => {
         setLoading(false);
       });
   };
+
 
   return (
     <div>
@@ -65,41 +95,15 @@ const Blogs = () => {
         ) : (
           <>
             <div className="m-5 pb-7">
-              {blogs.length === 0 ? (
+              {currentBlogs.length === 0 ? (
                 <EmptyList />
               ) : (
                 <>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {blogs.map((blog) => (
-                      <div
-                        key={blog._id}
-                        className="border rounded-md p-4 shadow hover:shadow-lg space-y-3"
-                      >
-                        <h3 className="text-xl font-semibold">
-                          {blog.title.length > 40
-                            ? `${blog.title.slice(0, 50)}...`
-                            : blog.title}
-                        </h3>
-                        <p>
-                          {blog.description.length > 150
-                            ? `${blog.description.slice(0, 150)}...`
-                            : blog.description}
-                        </p>
-                        <div>
-                          <p className="text-gray-500 text-sm">
-                            By: {blog.name}
-                          </p>
-                          <p className="text-gray-400 text-sm">
-                            Date: {blog.date}
-                          </p>
-                        </div>
-                        <div className="flex justify-between ">
-                          <button className="px-5 py-3 rounded-md bg-slate-700 text-white hover:bg-blue-800">Edit</button>
-                          <button className="px-5 py-3 rounded-md bg-slate-700 text-white hover:bg-red-700">Remove</button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                  
+                    <BlogCard currentBlogs={currentBlogs} 
+                    setBlogs= {setBlogs}
+                    />
+                 
                 </>
               )}
             </div>
@@ -110,6 +114,34 @@ const Blogs = () => {
           </>
         )}
       </div>
+      <div className="text-center mb-10">
+        <button
+          onClick={handlePreviousPage}
+          className="mr-2 py-1 px-3 rounded-md"
+          disabled={currentPage === 1} // Disable button if on first page
+        >
+          Prev
+        </button>
+        {pages.map((page) => (
+          <button
+            className={`mr-2 py-1 px-3 rounded-md ${
+              currentPage === page + 1 ? "bg-blue-200" : ""
+            }`}
+            onClick={() => setCurrentPage(page + 1)}
+            key={page}
+          >
+            {page + 1}
+          </button>
+        ))}
+        <button
+          onClick={handleNextPage}
+          className="mr-2 py-1 px-3 rounded-md"
+          disabled={currentPage === numberOfPages} // Disable if on last page
+        >
+          Next
+        </button>
+      </div>
+
     </div>
   );
 };
