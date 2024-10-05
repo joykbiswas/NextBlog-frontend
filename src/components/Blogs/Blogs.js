@@ -10,9 +10,8 @@ const Blogs = () => {
   const [searchKey, setSearchKey] = useState("");
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  // const [itemsPerPage, setItemsParPage] = useState(5);
+  const [isLatest, setIsLatest] = useState(false);
   const itemsPerPage = 9;
-  // const count = 50;
 
   useEffect(() => {
     fetch("http://localhost:5000/addBlog")
@@ -22,24 +21,23 @@ const Blogs = () => {
         setLoading(false);
       });
   }, []);
+
   const totalBlogs = blogs.length;
   const numberOfPages = Math.ceil(totalBlogs / itemsPerPage);
   const pages = [...Array(numberOfPages).keys()];
 
-  const currentBlogs = blogs.slice(
+  // Sort blogs by date if "Latest" is selected
+  const filteredBlogs = isLatest
+    ? [...blogs].sort((a, b) => new Date(b.date) - new Date(a.date)) // Sorting by latest date
+    : blogs;
+
+  const currentBlogs = filteredBlogs.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  
-  // const handleItemPerPage = (e) => {
-  //   const val = parseInt(e.target.value);
-  //   setItemsParPage(val);
-  //   setCurrentPage(0);
-  // };
-
-   // Pagination functions
-   const handlePreviousPage = () => {
+  // Pagination functions
+  const handlePreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
@@ -49,7 +47,7 @@ const Blogs = () => {
     if (currentPage < numberOfPages) {
       setCurrentPage(currentPage + 1);
     }
-  };  
+  };
 
   // Search submit
   const handleSearchBar = (e) => {
@@ -76,7 +74,6 @@ const Blogs = () => {
       });
   };
 
-
   return (
     <div>
       <div>
@@ -87,6 +84,26 @@ const Blogs = () => {
           handleSearchKey={(e) => setSearchKey(e.target.value)}
         />
       </div>
+      {/* Toggle between "Latest Blog" and "All Blog" */}
+      <div className="flex justify-center my-5">
+        <button
+          className={`px-4 py-2 mr-2 rounded-md ${
+            isLatest ? "bg-blue-500 text-white" : "bg-gray-200"
+          }`}
+          onClick={() => setIsLatest(true)} 
+        >
+          Latest Blog
+        </button>
+        <button
+          className={`px-4 py-2 rounded-md ${
+            !isLatest ? "bg-blue-500 text-white" : "bg-gray-200"
+          }`}
+          onClick={() => setIsLatest(false)}
+        >
+          All Blog
+        </button>
+      </div>
+
       <div>
         {loading ? (
           <div>
@@ -99,26 +116,19 @@ const Blogs = () => {
                 <EmptyList />
               ) : (
                 <>
-                  
-                    <BlogCard currentBlogs={currentBlogs} 
-                    setBlogs= {setBlogs}
-                    />
-                 
+                  <BlogCard currentBlogs={currentBlogs} setBlogs={setBlogs} />
                 </>
               )}
             </div>
-
-            {/* <div className="sidebar">
-                <Sidebar ></Sidebar>
-              </div> */}
           </>
         )}
       </div>
+      {/* Pagination here */}
       <div className="text-center mb-10">
         <button
           onClick={handlePreviousPage}
           className="mr-2 py-1 px-3 rounded-md"
-          disabled={currentPage === 1} // Disable button if on first page
+          disabled={currentPage === 1}
         >
           Prev
         </button>
@@ -136,12 +146,11 @@ const Blogs = () => {
         <button
           onClick={handleNextPage}
           className="mr-2 py-1 px-3 rounded-md"
-          disabled={currentPage === numberOfPages} // Disable if on last page
+          disabled={currentPage === numberOfPages} 
         >
           Next
         </button>
       </div>
-
     </div>
   );
 };

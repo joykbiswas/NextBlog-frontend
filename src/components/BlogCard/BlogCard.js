@@ -3,17 +3,6 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 const BlogCard = ({ currentBlogs, setBlogs }) => {
-  //   const [blogs, setBlogs] = useState([]);
-
-  //   useEffect(() => {
-  //     fetch("http://localhost:5000/addBlog")
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         setBlogs(data);
-  //       });
-  //   }, []);
-
-  //   console.log(blogs);
 
   const handleDelete = (_id) => {
     console.log(_id);
@@ -32,7 +21,7 @@ const BlogCard = ({ currentBlogs, setBlogs }) => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
+            
             if (data.deletedCount > 0) {
               Swal.fire("Deleted!", "Your Blog has been deleted.", "success");
               setBlogs((prevBlogs) =>
@@ -44,17 +33,16 @@ const BlogCard = ({ currentBlogs, setBlogs }) => {
     });
   };
 
-  //   console.log(blogs);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {currentBlogs.map((blog) => (
         <div key={blog._id}>
           <>
-            <div className="border rounded-md p-4 shadow hover:shadow-lg space-y-3">
+            <div className=" border rounded-md p-4 shadow hover:shadow-lg space-y-3">
               <Link href={`blogDetails/${blog._id}`}>
                 <h3 className="text-xl font-semibold">
                   {blog.title.length > 40
-                    ? `${blog.title.slice(0, 50)}...`
+                    ? `${blog.title.slice(0, 33)}...`
                     : blog.title}
                 </h3>
                 <p>
