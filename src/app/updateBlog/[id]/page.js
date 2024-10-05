@@ -20,7 +20,7 @@ const UpdateBlog = ({ params }) => {
   // Fetch the blog details by params.id
   useEffect(() => {
     if (params.id) {
-      fetch(`http://localhost:5000/addBlog/${params.id}`)
+      fetch(`https://next-blog-backend.vercel.app/addBlog/${params.id}`)
         .then((res) => res.json())
         .then((data) => {
           setBlog(data); // Set blog data
@@ -48,7 +48,7 @@ const UpdateBlog = ({ params }) => {
     const updatedBlog = { ...blog };
 
     // Send updated data to the server
-    fetch(`http://localhost:5000/addBlog/${params.id}`, {
+    fetch(`https://next-blog-backend.vercel.app/addBlog/${params.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

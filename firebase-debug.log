@@ -1,0 +1,36 @@
+[debug] [2024-10-05T08:10:18.045Z] ----------------------------------------------------------------------
+[debug] [2024-10-05T08:10:18.051Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\HP\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-10-05T08:10:18.051Z] CLI Version:   13.8.0
+[debug] [2024-10-05T08:10:18.051Z] Platform:      win32
+[debug] [2024-10-05T08:10:18.051Z] Node Version:  v21.5.0
+[debug] [2024-10-05T08:10:18.052Z] Time:          Sat Oct 05 2024 14:10:18 GMT+0600 (Bangladesh Standard Time)
+[debug] [2024-10-05T08:10:18.052Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-10-05T08:10:18.064Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-05T08:10:18.064Z] > authorizing via signed-in user (joykumarbiswas100@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\Job Task\NextBlog\nextBlog-frontend
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-10-05T08:10:58.542Z] > refreshing access token with scopes: []
+[debug] [2024-10-05T08:10:58.544Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-10-05T08:10:58.544Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-10-05T08:11:00.153Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-10-05T08:11:00.154Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-10-05T08:11:00.162Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2024-10-05T08:11:02.001Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2024-10-05T08:11:02.002Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]

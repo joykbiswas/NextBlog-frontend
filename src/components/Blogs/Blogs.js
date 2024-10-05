@@ -14,7 +14,7 @@ const Blogs = () => {
   const itemsPerPage = 9;
 
   useEffect(() => {
-    fetch("http://localhost:5000/addBlog")
+    fetch("https://next-blog-backend.vercel.app/addBlog")
       .then((res) => res.json())
       .then((data) => {
         setBlogs(data);
@@ -66,7 +66,7 @@ const Blogs = () => {
   const handleClearSearch = () => {
     // setBlogs(blogs);
     setSearchKey("");
-    fetch("http://localhost:5000/addBlog")
+    fetch("https://next-blog-backend.vercel.app/addBlog")
       .then((res) => res.json())
       .then((data) => {
         setBlogs(data);

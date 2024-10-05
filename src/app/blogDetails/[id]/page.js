@@ -8,7 +8,7 @@ const BlogDetails = ({ params }) => {
   const [blog, setBlog] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/addBlog")
+    fetch("https://next-blog-backend.vercel.app/addBlog")
       .then((res) => res.json())
       .then((data) => {
         const foundBlog = data.find((blog) => blog._id === id);

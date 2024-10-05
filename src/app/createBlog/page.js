@@ -20,7 +20,7 @@ const CreateBlog = () => {
     });
     const addBlog = { title, description, name , date};
     console.log(addBlog);
-    fetch('http://localhost:5000/addBlog',{
+    fetch('https://next-blog-backend.vercel.app/addBlog',{
         method: 'POST',
         headers:{
             'content-type': 'application/json'
